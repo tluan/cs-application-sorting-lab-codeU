@@ -69,14 +69,17 @@ public class ListSorter<T> {
        List<T> listA = new ArrayList<T>();
        List<T> listB = new ArrayList<T>();
        for(int i = 0; i < list.size();i++){
-    	   if(i<HalfSize){
+    	   if(i<=HalfSize){
     		   listA.add(list.get(i));
     		   
     	   }else{
     		   listB.add(list.get(i));
     	   }
        }
-       if (listA.size() < 5) {
+       
+       
+     //set a bound  
+       if (listA.size() < 5 && listB.size() < 5) {
 			Collections.sort(listA, comparator);		
 			Collections.sort(listB, comparator);
 		}
