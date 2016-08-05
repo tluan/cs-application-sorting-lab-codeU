@@ -5,6 +5,7 @@ package com.flatironschool.javacs;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
@@ -76,8 +77,8 @@ public class ListSorter<T> {
     	   }
        }
        if (listA.size() < 5) {
-			insertionSort(listA, comparator);		
-			insertionSort(listB, comparator);
+			Collections.sort(listA, comparator);		
+			Collections.sort(listB, comparator);
 		}
 		else {
 			listA = mergeSort(listA, comparator);
@@ -131,23 +132,14 @@ public class ListSorter<T> {
 	 * @return
 	 */
 	public List<T> topK(int k, List<T> list, Comparator<T> comparator) {
-//		List<T> sortedlist = new LinkedList<T>(list); 
-//		insertionSort(sortedlist,comparator);
-//		for(int i = sortedlist.size() - k -1; i < sortedlist.size();i++){
-//			sortedlist.remove(i);
-//		}
-//		return sortedlist;
+
 		PriorityQueue<T> heap = new PriorityQueue(list.size(), comparator);
 		heap.addAll(list);
 		Stack<T> stack = new Stack<T>();
 		int i =  heap.size();
-			//if(i>heap.size()-k-1){
-			//stack.push(heap.poll());
+		
 				while(heap.size()!=k){
 				heap.poll();
-				//System.out.println(heap.toString());
-				
-			//}
 		}
 		List<T> sortedlist = new ArrayList<T>();
 		while(heap.size()!=0){
