@@ -9,6 +9,7 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.PriorityQueue;
+import java.util.Stack;
 
 /**
  * Provides sorting algorithms.
@@ -63,8 +64,45 @@ public class ListSorter<T> {
 	 * @return
 	 */
 	public List<T> mergeSort(List<T> list, Comparator<T> comparator) {
-        // FILL THIS IN!
-        return null;
+       int HalfSize = list.size()/2;
+       List<T> listA = new ArrayList<T>();
+       List<T> listB = new ArrayList<T>();
+       for(int i = 0; i < list.size();i++){
+    	   if(i<HalfSize){
+    		   listA.add(list.get(i));
+    		   
+    	   }else{
+    		   listB.add(list.get(i));
+    	   }
+       }
+       if (listA.size() < 5) {
+			insertionSort(listA, comparator);		
+			insertionSort(listB, comparator);
+		}
+		else {
+			listA = mergeSort(listA, comparator);
+			listB = mergeSort(listB, comparator);
+		}
+    
+       List<T> sortedList = merge(listA,listB,comparator);
+       return  sortedList;
+       
+	}
+	public List<T> merge(List<T> list1,List<T> list2,Comparator<T> comparator){
+	int i = 0;
+	
+	for(int j = 0; j < list2.size();j++){
+		T object = list2.get(j);
+		boolean m = true;
+		while(m){
+			if(comparator.compare(object, list1.get(i))<=0){
+				list1.add(i,object);
+				m = false;
+				}
+			i++;
+			}
+		}
+	return list1;
 	}
 
 	/**
@@ -75,7 +113,11 @@ public class ListSorter<T> {
 	 * @return
 	 */
 	public void heapSort(List<T> list, Comparator<T> comparator) {
-        // FILL THIS IN!
+		PriorityQueue<T> heapSort = new PriorityQueue(list.size(), comparator);
+		heapSort.addAll(list);
+		for (int i = 0; i < list.size(); i++) {
+			list.set(i, heapSort.poll());
+		}
 	}
 
 	
@@ -89,8 +131,29 @@ public class ListSorter<T> {
 	 * @return
 	 */
 	public List<T> topK(int k, List<T> list, Comparator<T> comparator) {
-        // FILL THIS IN!
-        return null;
+//		List<T> sortedlist = new LinkedList<T>(list); 
+//		insertionSort(sortedlist,comparator);
+//		for(int i = sortedlist.size() - k -1; i < sortedlist.size();i++){
+//			sortedlist.remove(i);
+//		}
+//		return sortedlist;
+		PriorityQueue<T> heap = new PriorityQueue(list.size(), comparator);
+		heap.addAll(list);
+		Stack<T> stack = new Stack<T>();
+		int i =  heap.size();
+			//if(i>heap.size()-k-1){
+			//stack.push(heap.poll());
+				while(heap.size()!=k){
+				heap.poll();
+				//System.out.println(heap.toString());
+				
+			//}
+		}
+		List<T> sortedlist = new ArrayList<T>();
+		while(heap.size()!=0){
+			sortedlist.add(heap.poll());
+		}
+		return sortedlist;
 	}
 
 	
